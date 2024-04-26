@@ -21,7 +21,7 @@
 using namespace NameGen;
 
 
-static std::mt19937 rng(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+static std::mt19937 rng(static_cast<unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count()));
 
 
 // https://isocpp.org/wiki/faq/ctors#static-init-order
@@ -243,8 +243,8 @@ std::string Random::toString()
 	if (!generators.size()) {
 		return "";
 	}
-	std::uniform_real_distribution<double> distribution(0, generators.size() - 1);
-	int rnd = distribution(rng) + 0.5;
+	std::uniform_real_distribution<double> distribution(0, static_cast<double>(generators.size() - 1));
+	int rnd = static_cast<int>(distribution(rng) + 0.5);
 	return generators[rnd]->toString();
 }
 
